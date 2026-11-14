@@ -3,6 +3,62 @@
 <!-- Published Sep 27, 2026, 10:07 AM UTC -->
 <html dir="ltr">
 <head>
+
+<!-- Theme Icons Interceptor for Rotating Gallery -->
+<script>
+(function() {
+  const iconList = [
+    'assets/theme_icons/icon_ganesha.svg',
+    'assets/theme_icons/icon_kalash.svg',
+    'assets/theme_icons/icon_shehnai.svg',
+    'assets/theme_icons/icon_agni_phere.svg',
+    'assets/theme_icons/icon_swastik_diya.svg'
+  ];
+
+  function mapUnsplashToThemeIcon(src) {
+    if (!src || typeof src !== 'string') return null;
+    if (src.includes('photo-1506744038136')) return iconList[0]; // Ganesh
+    if (src.includes('photo-1469474968028')) return iconList[1]; // Kalash
+    if (src.includes('photo-1447752875215')) return iconList[2]; // Shehnai
+    if (src.includes('photo-1433086966358')) return iconList[3]; // Agni Phere
+    if (src.includes('photo-1470071459604')) return iconList[4]; // Swastik
+    if (src.includes('photo-1441974231531')) return iconList[0]; // Ganesh
+    if (src.includes('images.unsplash.com')) return iconList[0];
+    return null;
+  }
+
+  // Intercept setAttribute('src', ...)
+  const origSetAttr = Element.prototype.setAttribute;
+  Element.prototype.setAttribute = function(name, val) {
+    if (this.tagName === 'IMG' && typeof name === 'string' && name.toLowerCase() === 'src') {
+      const mapped = mapUnsplashToThemeIcon(val);
+      if (mapped) {
+        return origSetAttr.call(this, name, mapped);
+      }
+    }
+    return origSetAttr.apply(this, arguments);
+  };
+
+  // Intercept HTMLImageElement.prototype.src setter
+  try {
+    const desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+    if (desc && desc.set) {
+      Object.defineProperty(HTMLImageElement.prototype, 'src', {
+        set: function(val) {
+          const mapped = mapUnsplashToThemeIcon(val);
+          desc.set.call(this, mapped || val);
+        },
+        get: function() {
+          return desc.get.call(this);
+        },
+        configurable: true,
+        enumerable: true
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+
 <script>
 // Bulletproof Google Maps redirect to Royal Palace Rajnandgaon
 (function() {
@@ -71,7 +127,189 @@
 }
 #__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]{display:none!important}#acp-demo-brand{display:block;text-align:center;padding:20px;font:14px Georgia,serif;color:#8d784d;background:#fff8ed}.framer-1hm5mtp>.framer-13ss7kg,.framer-1hm5mtp>.framer-jab4b0{overflow:hidden!important}.framer-1hm5mtp>.framer-13ss7kg>div>img,.framer-1hm5mtp>.framer-jab4b0>div>img{transform:scale(1.18)!important;transform-origin:center top!important;image-rendering:auto!important}
 [data-framer-name='RSVP Form'],[data-framer-name='RSVP Greeting'],[data-framer-name='RSVP Greeting Message'],[data-framer-name='RSVP Note'],[data-framer-name*='RSVP' i]{display:none !important;visibility:hidden !important;height:0 !important;pointer-events:none !important;}
-img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position:center top !important;object-fit:cover !important;}</style><script>document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');},true);function acpBrand(){var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var node;while(node=walker.nextNode()){if(!/SCRIPT|STYLE/.test(node.parentElement.tagName)&&/theartfulinvites|ACP Invites/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/@?theartfulinvites|ACP Invites/gi,'ACP Invites');}document.querySelectorAll('#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]').forEach(function(el){el.remove()});document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(/artfulinvites|demo\d.*framer.website|wa.me|api.whatsapp.com|instagram.com/i.test(h))a.href='https://wa.me/918236016009?text=Hello%20A.C.P';});}document.addEventListener('click',function(e){var b=e.target.closest('button,a');if(b&&/RSVP/i.test(b.textContent)){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');}},true);document.addEventListener('DOMContentLoaded',function(){acpBrand();new MutationObserver(acpBrand).observe(document.body,{childList:true,subtree:true});});</script>
+img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position:center top !important;object-fit:cover !important;}
+/* ==========================================================================
+   MOBILE HERO & INVITATION NAMES SIZE ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  /* Hero Section: Siddharth weds Annu */
+  [data-framer-name="Hero Title — Siddharth"] p.framer-text,
+  .framer-1axh2oo p.framer-text,
+  .framer-7ez67e p.framer-text,
+  .framer-rod3py p.framer-text {
+    font-size: clamp(32px, 8.5vw, 42px) !important;
+    --framer-font-size: clamp(32px, 8.5vw, 42px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [data-framer-name="Hero Title — Annu"] p.framer-text,
+  .framer-k5sw6i p.framer-text,
+  .framer-k1c972 p.framer-text,
+  .framer-1xgljid p.framer-text {
+    font-size: clamp(34px, 9vw, 44px) !important;
+    --framer-font-size: clamp(34px, 9vw, 44px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [data-framer-name="Hero Title — and"] p.framer-text {
+    font-size: clamp(18px, 5vw, 24px) !important;
+    --framer-font-size: clamp(18px, 5vw, 24px) !important;
+  }
+
+  /* Invitation Section: Siddharth and Annu */
+  [data-framer-name="Groom Name — Siddharth"] p.framer-text,
+  .framer-drfk4d p.framer-text,
+  .framer-16pn0qa p.framer-text,
+  .framer-11upt1c p.framer-text {
+    font-size: clamp(36px, 9.5vw, 48px) !important;
+    --framer-font-size: clamp(36px, 9.5vw, 48px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [data-framer-name="Bride Name — Annu"] p.framer-text,
+  .framer-j4wz4a p.framer-text,
+  .framer-xdw7yv p.framer-text,
+  .framer-10ci637 p.framer-text {
+    font-size: clamp(38px, 10vw, 50px) !important;
+    --framer-font-size: clamp(38px, 10vw, 50px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [data-framer-name="Ampersand — and"] p.framer-text {
+    font-size: clamp(18px, 5vw, 24px) !important;
+    --framer-font-size: clamp(18px, 5vw, 24px) !important;
+  }
+}
+
+/* ==========================================================================
+   CEREMONY CARDS: TEXT SIZE RATIO 3:1 & GRAND RECEPTION HIGHLIGHT
+   ========================================================================== */
+
+/* 1. Function Titles: Prominent Ratio 3 */
+.timeline-ceremony-title,
+[data-framer-name="1"] .timeline-ceremony-title,
+[data-framer-name="2"] .timeline-ceremony-title,
+[data-framer-name="3"] .timeline-ceremony-title,
+[data-framer-name="4"] .timeline-ceremony-title,
+[data-framer-name="1"] > div:nth-child(7) p.framer-text,
+[data-framer-name="2"] > div:nth-child(7) p.framer-text,
+[data-framer-name="3"] > div:nth-child(7) p.framer-text,
+[data-framer-name="4"] > div:nth-child(7) p.framer-text {
+  font-family: "IvyOra Display Medium", "IvyOra Display Medium Placeholder", serif !important;
+  font-size: 17px !important;
+  --framer-font-size: 17px !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  color: rgb(171, 86, 38) !important;
+  text-align: center !important;
+  letter-spacing: -0.01em !important;
+  white-space: normal !important;
+  margin: 0 auto !important;
+}
+
+/* 2. Dates: Subtle Ratio 1 */
+.timeline-ceremony-date,
+[data-framer-name="2 — Wedding Timeline"] .timeline-ceremony-date,
+.framer-1odyy6l p.framer-text, .framer-19xnnz p.framer-text,
+.framer-1vinluz p.framer-text, .framer-eavykz p.framer-text,
+.framer-191j49k p.framer-text {
+  font-family: "Gotham Light", "Gotham Light Placeholder", sans-serif !important;
+  font-size: 11.5px !important;
+  --framer-font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: rgb(95, 37, 15) !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+/* 3. Times: Subtle Ratio 1 */
+.timeline-ceremony-time,
+[data-framer-name="2 — Wedding Timeline"] .timeline-ceremony-time,
+.framer-7e2jj1 p.framer-text, .framer-12x3yp p.framer-text,
+.framer-wm4srp p.framer-text, .framer-1sb17tv p.framer-text,
+.framer-1pxcgdp p.framer-text {
+  font-family: "Gotham Light", "Gotham Light Placeholder", sans-serif !important;
+  font-size: 11px !important;
+  --framer-font-size: 11px !important;
+  font-weight: 400 !important;
+  color: rgb(95, 37, 15) !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+/* 4. Card 5: Grand Reception (Centered in Middle, Bigger, Highlighted Special) */
+[data-framer-name="5"],
+.framer-10mht0w {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 168px !important;
+  z-index: 5 !important;
+  filter: drop-shadow(0 0 18px rgba(228, 188, 131, 0.9)) drop-shadow(0 6px 16px rgba(171, 86, 38, 0.45)) !important;
+}
+
+[data-framer-name="5"] .timeline-ceremony-title,
+[data-framer-name="5"] > div:nth-child(7) p.framer-text,
+.framer-snvp5b p.framer-text {
+  font-family: "IvyOra Display Medium", "IvyOra Display Medium Placeholder", serif !important;
+  font-size: 20px !important;
+  --framer-font-size: 20px !important;
+  font-weight: 700 !important;
+  color: rgb(155, 65, 18) !important;
+}
+
+/* Card 5 Children Positioning: Target wrapper divs for Date & Time */
+[data-framer-name="5"] .framer-1oq5dks,
+[data-framer-name="5"] .framer-191j49k,
+[data-framer-name="5"] div:has(> .timeline-ceremony-date) {
+  top: 104px !important;
+}
+
+[data-framer-name="5"] .timeline-ceremony-date {
+  font-size: 12px !important;
+  --framer-font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+[data-framer-name="5"] .framer-1ulj18x,
+[data-framer-name="5"] .framer-1pxcgdp,
+[data-framer-name="5"] div:has(> .timeline-ceremony-time) {
+  top: 126px !important;
+  bottom: unset !important;
+  transform: translate(-50%, 0) !important;
+}
+
+[data-framer-name="5"] .timeline-ceremony-time {
+  font-size: 11.5px !important;
+  --framer-font-size: 11.5px !important;
+  font-weight: 500 !important;
+}
+
+/* Cards 1-4 wrappers */
+[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-date) {
+  top: 92px !important;
+}
+[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-time) {
+  top: 114px !important;
+  bottom: unset !important;
+}
+
+/* 5. Card 6: Shaadi (Completely Removed) */
+[data-framer-name="6"],
+.framer-ltqi77,
+.framer-11aomx8,
+.framer-dfq0ah {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+</style><script>document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');},true);function acpBrand(){var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var node;while(node=walker.nextNode()){if(!/SCRIPT|STYLE/.test(node.parentElement.tagName)&&/theartfulinvites|ACP Invites/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/@?theartfulinvites|ACP Invites/gi,'ACP Invites');}document.querySelectorAll('#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]').forEach(function(el){el.remove()});document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(/artfulinvites|demo\d.*framer.website|wa.me|api.whatsapp.com|instagram.com/i.test(h))a.href='https://wa.me/918236016009?text=Hello%20A.C.P';});}document.addEventListener('click',function(e){var b=e.target.closest('button,a');if(b&&/RSVP/i.test(b.textContent)){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');}},true);document.addEventListener('DOMContentLoaded',function(){acpBrand();new MutationObserver(acpBrand).observe(document.body,{childList:true,subtree:true});});</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<meta name="generator" content="Framer 95da0c7">
@@ -501,12 +739,11 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
 
     // 2. Timeline Ceremonies
     const ceremonies = {
-      '1': { title: 'Mehndi Ceremony', date: '10th Dec 2026', day: 'Thursday', time: '4:00 PM Onwards' },
-      '2': { title: 'Haldi Ceremony', date: '11th Dec 2026', day: 'Friday', time: '10:00 AM Onwards' },
-      '3': { title: 'Sangeet Night', date: '11th Dec 2026', day: 'Friday', time: '7:00 PM Onwards' },
-      '4': { title: 'Shubh Vivah<br>(Phera)', date: '12th Dec 2026', day: 'Saturday', time: '11:00 AM Onwards' },
-      '5': { title: 'Grand Reception', date: '12th Dec 2026', day: 'Saturday', time: '7:00 PM Onwards' },
-      '6': { title: 'Shaadi', date: '12th Dec 2026', day: 'Saturday', time: '6:00 PM Onwards' }
+      '1': { title: 'Mehndi Ceremony', date: '10th Dec 2026', time: '4:00 PM Onwards' },
+      '2': { title: 'Haldi Ceremony', date: '11th Dec 2026', time: '10:00 AM Onwards' },
+      '3': { title: 'Sangeet Night', date: '11th Dec 2026', time: '7:00 PM Onwards' },
+      '4': { title: 'Shubh Vivah<br>(Phera)', date: '12th Dec 2026', time: '11:00 AM Onwards' },
+      '5': { title: 'Grand Reception', date: '12th Dec 2026', time: '7:00 PM Onwards' }
     };
 
     function updateParents() {
@@ -523,13 +760,19 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     }
 
     function updateTimelineCards() {
+      // Completely remove / hide Shaadi (Card 6)
+      document.querySelectorAll('[data-framer-name="6"], .framer-ltqi77, .framer-11aomx8, .framer-dfq0ah').forEach(el => {
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+      });
+
       for (const [key, info] of Object.entries(ceremonies)) {
         const cards = document.querySelectorAll('[data-framer-name="' + key + '"]');
         cards.forEach(card => {
           const ps = card.querySelectorAll('p.framer-text');
           ps.forEach(p => {
             const txt = p.innerText.trim();
-            // Title
+            // Title (Text size ratio 3 - Prominent Function Name)
             if (txt === 'Shaadi' || txt.includes('Ceremony') || txt.includes('Phera') || txt.includes('Vivah') || txt.includes('Reception') || txt.includes('Night')) {
               if (p.innerHTML !== info.title) {
                 p.innerHTML = info.title;
@@ -539,29 +782,25 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
                 p.parentElement.classList.add('timeline-ceremony-title-box');
               }
             } 
-            // Date (matches Dec or Aug)
+            // Date (Text size ratio 1 - Subtle Date)
             else if (/\b(Aug|Dec)\b/i.test(txt) || /\d{1,2}(st|nd|rd|th)/i.test(txt)) {
               if (p.innerText !== info.date) {
                 p.innerText = info.date;
               }
-            } 
-            // Venue / Location
-            else if (/Pune|Maharashtra|Venue|Royal Palace/i.test(txt)) {
-              if (p.innerText !== 'Royal Palace, Rajnandgaon') {
-                p.innerText = 'Royal Palace, Rajnandgaon';
-              }
-              p.classList.add('timeline-ceremony-venue');
-            }
-            // Day
-            else if (/^(Thursday|Friday|Saturday|Sunday|Monday|Tuesday|Wednesday)$/i.test(txt)) {
-              if (p.innerText !== info.day) {
-                p.innerText = info.day;
+              p.classList.add('timeline-ceremony-date');
+              if (p.parentElement) {
+                p.parentElement.style.top = (key === '5' ? '104px' : '92px');
               }
             } 
-            // Time
-            else if (/Onwards/i.test(txt)) {
+            // Time (Text size ratio 1 - Subtle Time)
+            else if (/Onwards|AM|PM/i.test(txt) && !/Dec|Aug/i.test(txt)) {
               if (p.innerText !== info.time) {
                 p.innerText = info.time;
+              }
+              p.classList.add('timeline-ceremony-time');
+              if (p.parentElement) {
+                p.parentElement.style.top = (key === '5' ? '126px' : '114px');
+                p.parentElement.style.bottom = 'unset';
               }
             }
           });
@@ -677,7 +916,7 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
                 <script type="framer/appear" id="__framer__appearAnimationsContent">{"1w0sfru":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"1xa7mer":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"3hovmw":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"luvd5":{"default":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"k2tod6":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"11v2ks5":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"bsay70":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"flz1ju":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1tc0fsl":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1b8a3mn":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"vlymnr":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"7902is":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"sdmwty":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1tqqkff":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1kw8tgm":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1cx7v4z":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"zeltxf":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1kglzlv":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}}},"kzkqz9":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"k4dhgx":{"default":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"7902is":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"sdmwty":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1tqqkff":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"k2tod6":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"11v2ks5":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1kw8tgm":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1cx7v4z":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"zeltxf":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1kglzlv":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1tc0fsl":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"1b8a3mn":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"bsay70":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"flz1ju":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.2,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"},"vlymnr":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.6,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1.2,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.1,"type":"spring"},"x":0,"y":0},"transformTemplate":"translateX(-50%) __Appear_Animation_Transform__"}},"12jygvc":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":1.5,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"axskc8":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":1.5,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"556qa9":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":1.7,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"1sl8bfq":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":1.7,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"17r56f2":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":2,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"1516w3j":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":2,"duration":1.5,"type":"spring"},"x":0,"y":0}}},"uz89dr":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"1s9f5jv":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"1wcqky8":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}},"1uhcg0a":{"default":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"7902is":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"sdmwty":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1tqqkff":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1kw8tgm":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"bsay70":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1cx7v4z":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"zeltxf":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"flz1ju":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1kglzlv":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1b8a3mn":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"vlymnr":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"k2tod6":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"11v2ks5":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}},"1tc0fsl":{"initial":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":2.3,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.1,"duration":2.5,"type":"spring"},"x":0,"y":0}}},"ldqgai":{"default":{"initial":{"opacity":0.001,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"x":0,"y":0},"animate":{"opacity":1,"rotate":0,"rotateX":0,"rotateY":0,"scale":1,"skewX":0,"skewY":0,"transition":{"bounce":0,"delay":0.7,"duration":2,"type":"spring"},"x":0,"y":0}}}}</script>
                 <script type="framer/appear" id="__framer__breakpoints">[{"hash":"flz1ju","mediaQuery":"(min-width: 1920px)"},{"hash":"vlymnr","mediaQuery":"(min-width: 1728px) and (max-width: 1919.98px)"},{"hash":"bsay70","mediaQuery":"(min-width: 1559px) and (max-width: 1727.98px)"},{"hash":"72rtr7","mediaQuery":"(min-width: 1349px) and (max-width: 1558.98px)"},{"hash":"1b8a3mn","mediaQuery":"(min-width: 1280px) and (max-width: 1348.98px)"},{"hash":"1tc0fsl","mediaQuery":"(min-width: 960px) and (max-width: 1279.98px)"},{"hash":"k2tod6","mediaQuery":"(min-width: 834px) and (max-width: 959.98px)"},{"hash":"11v2ks5","mediaQuery":"(min-width: 768px) and (max-width: 833.98px)"},{"hash":"sdmwty","mediaQuery":"(min-width: 430px) and (max-width: 767.98px)"},{"hash":"1kglzlv","mediaQuery":"(min-width: 412px) and (max-width: 429.98px)"},{"hash":"zeltxf","mediaQuery":"(min-width: 393px) and (max-width: 411.98px)"},{"hash":"1cx7v4z","mediaQuery":"(min-width: 390px) and (max-width: 392.98px)"},{"hash":"1tqqkff","mediaQuery":"(min-width: 375px) and (max-width: 389.98px)"},{"hash":"7902is","mediaQuery":"(min-width: 360px) and (max-width: 374.98px)"},{"hash":"1kw8tgm","mediaQuery":"(max-width: 359.98px)"}]</script><script type="text/plain" id="ramDeferredEntrance" data-framer-appear-animation="no-preference">(()=>{function c(i,o,s){if(window.__framer_disable_appear_effects_optimization__||typeof animator>"u")return;let e={detail:{bg:document.hidden}};requestAnimationFrame(()=>{let a="framer-appear-start";performance.mark(a,e),animator.animateAppearEffects(JSON.parse(window.__framer__appearAnimationsContent.text),(m,p,d)=>{let t=document.querySelector(m);if(t)for(let[r,f]of Object.entries(p))animator.startOptimizedAppearAnimation(t,r,f,d[r])},i,o,s&&window.matchMedia("(prefers-reduced-motion:reduce)").matches===!0,animator.getActiveVariantHash(JSON.parse(window.__framer__breakpoints.text)));let n="framer-appear-end";performance.mark(n,e),performance.measure("framer-appear",{start:a,end:n,detail:e.detail})})}return c})()("data-framer-appear-id","__Appear_Animation_Transform__",false)</script>
 	<script>typeof document<"u"&&(window.process={...window.process,env:{...window.process?.env,NODE_ENV:"production"}});</script>
-	<link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/rolldown-runtime.Dh6celcD.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/react.D20wc1Tc.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/framer.CiFRaEJF.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/motion.BBuy5zEk.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/_GT-VP-hXyQKVnWDWenMHrDFYBpt-i1P5Pe4GGH9RuA.DwTZvUjA.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/shared-lib.DaQV-PXk.mjs"><script type="text/plain" id="ramDeferredRuntime" async data-framer-bundle="main" fetchpriority="low" src="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/script_main.Mhnt6FRu.mjs"></script><div id="svg-templates" style="position: absolute; overflow: hidden; bottom: 0; left: 0; width: 0; height: 0; z-index: 0; contain: strict" aria-hidden="true">
+	<link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/rolldown-runtime.Dh6celcD.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/react.D20wc1Tc.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/framer.CiFRaEJF.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/motion.BBuy5zEk.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/_GT-VP-hXyQKVnWDWenMHrDFYBpt-i1P5Pe4GGH9RuA.DwTZvUjA.mjs"><link rel="modulepreload" fetchpriority="low" href="./shared-lib.DaQV-PXk.mjs"><script type="text/plain" id="ramDeferredRuntime" async data-framer-bundle="main" fetchpriority="low" src="https://framerusercontent.com/sites/6BPEYqKa6azXC7Xj0I8m6a/script_main.Mhnt6FRu.mjs"></script><div id="svg-templates" style="position: absolute; overflow: hidden; bottom: 0; left: 0; width: 0; height: 0; z-index: 0; contain: strict" aria-hidden="true">
 </div>
 	<!-- Start of bodyEnd -->
     <!-- Snippet: hrGtV2R3N -->
@@ -971,6 +1210,67 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
 
   cleanupLocationSection();
   setInterval(cleanupLocationSection, 200);
+})();
+</script>
+
+
+<script>
+(function() {
+  const iconList = [
+    'assets/theme_icons/icon_ganesha.svg',
+    'assets/theme_icons/icon_kalash.svg',
+    'assets/theme_icons/icon_shehnai.svg',
+    'assets/theme_icons/icon_agni_phere.svg',
+    'assets/theme_icons/icon_swastik_diya.svg'
+  ];
+
+  const captionMap = {
+    'mountains': 'SHREE GANESH',
+    'valleys': 'MANGAL KALASH',
+    'forest': 'SHUBH SHEHNAI',
+    'waterfall': 'PAVITRA PHERE',
+    'meadow': 'SHUBH LABH',
+    'canopy': 'SHREE GANESH'
+  };
+
+  function enforcePhotoGallery() {
+    const galleryContainers = document.querySelectorAll('[data-framer-name="Photo Gallery"], .framer-1wwqjsk-container');
+    galleryContainers.forEach(gallery => {
+      const imgs = gallery.querySelectorAll('img');
+      imgs.forEach((img, idx) => {
+        const expected = iconList[idx % iconList.length];
+        const src = img.getAttribute('src') || img.src || '';
+        if (!src.includes(expected)) {
+          img.src = expected;
+          img.removeAttribute('srcset');
+        }
+      });
+
+      // Update rotating caption text
+      gallery.querySelectorAll('div, p, span').forEach(el => {
+        if (el.children.length === 0 && el.textContent) {
+          const raw = el.textContent.trim().toLowerCase();
+          if (captionMap[raw]) {
+            el.textContent = captionMap[raw];
+            el.style.color = '#5F250F';
+            el.style.fontWeight = '700';
+            el.style.letterSpacing = '1.5px';
+          }
+        }
+      });
+    });
+  }
+
+  // Run on load and frequently during hydration/scroll
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enforcePhotoGallery);
+  } else {
+    enforcePhotoGallery();
+  }
+
+  const obs = new MutationObserver(enforcePhotoGallery);
+  obs.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+  setInterval(enforcePhotoGallery, 150);
 })();
 </script>
 
