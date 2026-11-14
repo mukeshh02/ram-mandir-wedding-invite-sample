@@ -60,7 +60,16 @@
   setInterval(fixMapLinks, 500);
 })();
 </script>
-<base href="./"><meta name="robots" content="noindex,follow"><style>#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]{display:none!important}#acp-demo-brand{display:block;text-align:center;padding:20px;font:14px Georgia,serif;color:#8d784d;background:#fff8ed}.framer-1hm5mtp>.framer-13ss7kg,.framer-1hm5mtp>.framer-jab4b0{overflow:hidden!important}.framer-1hm5mtp>.framer-13ss7kg>div>img,.framer-1hm5mtp>.framer-jab4b0>div>img{transform:scale(1.18)!important;transform-origin:center top!important;image-rendering:auto!important}
+<base href="./"><meta name="robots" content="noindex,follow"><style>
+/* Hide location buttons container */
+[data-framer-name="Location Map"] div:has(> button:not([aria-label])),
+[name="Location Map"] div:has(> button:not([aria-label])) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]{display:none!important}#acp-demo-brand{display:block;text-align:center;padding:20px;font:14px Georgia,serif;color:#8d784d;background:#fff8ed}.framer-1hm5mtp>.framer-13ss7kg,.framer-1hm5mtp>.framer-jab4b0{overflow:hidden!important}.framer-1hm5mtp>.framer-13ss7kg>div>img,.framer-1hm5mtp>.framer-jab4b0>div>img{transform:scale(1.18)!important;transform-origin:center top!important;image-rendering:auto!important}
 [data-framer-name='RSVP Form'],[data-framer-name='RSVP Greeting'],[data-framer-name='RSVP Greeting Message'],[data-framer-name='RSVP Note'],[data-framer-name*='RSVP' i]{display:none !important;visibility:hidden !important;height:0 !important;pointer-events:none !important;}
 img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position:center top !important;object-fit:cover !important;}</style><script>document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');},true);function acpBrand(){var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var node;while(node=walker.nextNode()){if(!/SCRIPT|STYLE/.test(node.parentElement.tagName)&&/theartfulinvites|ACP Invites/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/@?theartfulinvites|ACP Invites/gi,'ACP Invites');}document.querySelectorAll('#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]').forEach(function(el){el.remove()});document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(/artfulinvites|demo\d.*framer.website|wa.me|api.whatsapp.com|instagram.com/i.test(h))a.href='https://wa.me/918236016009?text=Hello%20A.C.P';});}document.addEventListener('click',function(e){var b=e.target.closest('button,a');if(b&&/RSVP/i.test(b.textContent)){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');}},true);document.addEventListener('DOMContentLoaded',function(){acpBrand();new MutationObserver(acpBrand).observe(document.body,{childList:true,subtree:true});});</script>
 	<meta charset="utf-8">
@@ -496,7 +505,8 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
       '2': { title: 'Haldi Ceremony', date: '11th Dec 2026', day: 'Friday', time: '10:00 AM Onwards' },
       '3': { title: 'Sangeet Night', date: '11th Dec 2026', day: 'Friday', time: '7:00 PM Onwards' },
       '4': { title: 'Shubh Vivah<br>(Phera)', date: '12th Dec 2026', day: 'Saturday', time: '11:00 AM Onwards' },
-      '5': { title: 'Grand Reception', date: '12th Dec 2026', day: 'Saturday', time: '7:00 PM Onwards' }
+      '5': { title: 'Grand Reception', date: '12th Dec 2026', day: 'Saturday', time: '7:00 PM Onwards' },
+      '6': { title: 'Shaadi', date: '12th Dec 2026', day: 'Saturday', time: '6:00 PM Onwards' }
     };
 
     function updateParents() {
@@ -905,16 +915,65 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
 </script>
 <script>
 (() => {
-  const hideVenueDetails = () => {
+  const filterCeremonyCardDetails = () => {
     document.querySelectorAll('[data-framer-name="2 — Wedding Timeline"] [data-framer-component-type="RichTextContainer"]').forEach(element => {
       const text = element.textContent.replace(/\s+/g, ' ').trim();
-      if (/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|More details below)$/.test(text) || /Onwards$/.test(text) || /Royal Palace|Pune, Maharashtra/.test(text)) element.style.display = 'none';
+      // Keep ONLY: Event Title, Date, and Time
+      // Hide: Day (Thursday, etc.), Venue (Royal Palace, etc.), and "More details below"
+      if (/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|More details below)$/i.test(text) || /Royal Palace|Pune|Maharashtra|Venue/i.test(text)) {
+        element.style.display = 'none';
+      } else if (/Onwards|AM|PM|Dec|Aug|Ceremony|Vivah|Phera|Reception|Sangeet|Shaadi/i.test(text)) {
+        element.style.display = '';
+      }
     });
   };
-  hideVenueDetails();
-  new MutationObserver(hideVenueDetails).observe(document.body, {childList: true, subtree: true});
+  filterCeremonyCardDetails();
+  new MutationObserver(filterCeremonyCardDetails).observe(document.body, {childList: true, subtree: true});
 })();
 </script>
+
+<script>
+(function () {
+  function cleanupLocationSection() {
+    // 1. Hide the location pill buttons container
+    document.querySelectorAll('button').forEach(btn => {
+      const text = (btn.textContent || '').trim();
+      if (/^Location(\s*\d+)?$/i.test(text)) {
+        if (btn.parentElement) {
+          btn.parentElement.style.display = 'none';
+        }
+      }
+    });
+
+    // 2. Fix venue card address if placeholder is rendered
+    document.querySelectorAll('[data-framer-name="Location Map"] div, [name="Location Map"] div').forEach(el => {
+      if (el.children.length === 0) {
+        if (el.textContent.includes('Full street address')) {
+          el.textContent = 'Royal Palace, Rajnandgaon, Chhattisgarh';
+        }
+        if (el.textContent.trim() === 'Nearby Location') {
+          el.textContent = 'Wedding Venue';
+        }
+      }
+    });
+
+    // 3. Replace banner couple photo with Siddharth & Annu photo
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src') || img.src || '';
+      if (src.includes('cuJqbfW35i2RRVw2Q3Vaix9WO8I') || img.closest('[data-framer-name="Section Background"]')) {
+        if (!src.includes('assets/couple_photo.jpg')) {
+          img.src = 'assets/couple_photo.jpg';
+          img.removeAttribute('srcset');
+        }
+      }
+    });
+  }
+
+  cleanupLocationSection();
+  setInterval(cleanupLocationSection, 200);
+})();
+</script>
+
 </body>
 
 </html>
