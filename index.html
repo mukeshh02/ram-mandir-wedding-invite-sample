@@ -291,11 +291,16 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
   color: rgb(155, 65, 18) !important;
 }
 
-/* Card 5 Children Positioning: Target wrapper divs for Date & Time */
+/* Card 5 Children Positioning: Target wrapper divs for Title, Date & Time */
+[data-framer-name="5"] .framer-snvp5b,
+[data-framer-name="5"] > div:nth-child(7) {
+  top: 68px !important;
+}
+
 [data-framer-name="5"] .framer-1oq5dks,
 [data-framer-name="5"] .framer-191j49k,
 [data-framer-name="5"] div:has(> .timeline-ceremony-date) {
-  top: 104px !important;
+  top: 134px !important;
 }
 
 [data-framer-name="5"] .timeline-ceremony-date {
@@ -307,7 +312,7 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
 [data-framer-name="5"] .framer-1ulj18x,
 [data-framer-name="5"] .framer-1pxcgdp,
 [data-framer-name="5"] div:has(> .timeline-ceremony-time) {
-  top: 126px !important;
+  top: 156px !important;
   bottom: unset !important;
   transform: translate(-50%, 0) !important;
 }
@@ -318,12 +323,26 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
   font-weight: 500 !important;
 }
 
-/* Cards 1-4 wrappers */
-[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-date) {
-  top: 92px !important;
+/* Cards 1-4 wrappers: Title centered in upper-middle, Date & Time moved down */
+[data-framer-name="1"] > div:nth-child(7),
+[data-framer-name="2"] > div:nth-child(7),
+[data-framer-name="3"] > div:nth-child(7),
+.timeline-ceremony-title-box {
+  top: 60px !important;
 }
-[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-time) {
-  top: 114px !important;
+
+[data-framer-name="4"] > div:nth-child(7),
+[data-framer-name="4"] .timeline-ceremony-title-box {
+  top: 52px !important;
+}
+
+[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-date),
+.framer-1odyy6l, .framer-19xnnz, .framer-1vinluz, .framer-eavykz {
+  top: 118px !important;
+}
+[data-framer-name="2 — Wedding Timeline"] div:has(> .timeline-ceremony-time),
+.framer-7e2jj1, .framer-12x3yp, .framer-wm4srp, .framer-1sb17tv {
+  top: 138px !important;
   bottom: unset !important;
 }
 
@@ -337,6 +356,32 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
   pointer-events: none !important;
   height: 0 !important;
   overflow: hidden !important;
+}
+
+
+/* ==========================================================================
+   HIDE "THINGS TO KNOW" & DIRECTLY CONNECT ROYAL PALACE -> LINE -> COUNTDOWN
+   ========================================================================== */
+[data-framer-name="Things to Know"],
+[data-framer-name="Things to Know Heading"],
+[data-framer-name="Things to Know Subtext"],
+[data-framer-name="Things to Know Content"],
+[data-framer-name="Info Icons Row"],
+[data-framer-name*="Things to Know" i],
+[data-framer-name*="Info Icons" i] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+[data-framer-name="Countdown Divider"] {
+  margin-top: 26px !important;
+  margin-bottom: 8px !important;
 }
 
 </style><script>document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');},true);function acpBrand(){var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var node;while(node=walker.nextNode()){if(!/SCRIPT|STYLE/.test(node.parentElement.tagName)&&/theartfulinvites|ACP Invites/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/@?theartfulinvites|ACP Invites/gi,'ACP Invites');}document.querySelectorAll('#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]').forEach(function(el){el.remove()});document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(/artfulinvites|demo\d.*framer.website|wa.me|api.whatsapp.com|instagram.com/i.test(h))a.href='https://wa.me/918236016009?text=Hello%20A.C.P';});}document.addEventListener('click',function(e){var b=e.target.closest('button,a');if(b&&/RSVP/i.test(b.textContent)){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');}},true);document.addEventListener('DOMContentLoaded',function(){acpBrand();new MutationObserver(acpBrand).observe(document.body,{childList:true,subtree:true});});</script>
@@ -646,13 +691,18 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
       width: 80% !important;
       max-width: 80% !important;
       left: 50% !important;
-      top: 42px !important;
+      top: 60px !important;
       transform: translateX(-50%) !important;
       text-align: center !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       z-index: 10 !important;
+    }
+
+    [data-framer-name="5"] > div:nth-child(7),
+    .framer-snvp5b {
+      top: 68px !important;
     }
 
     .timeline-ceremony-title,
@@ -679,7 +729,7 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     .framer-1a48c90 .timeline-ceremony-title-box,
     .framer-ijft8m, .framer-1gg35w, .framer-1o7sj8g {
       max-width: 70% !important;
-      top: 36px !important;
+      top: 52px !important;
     }
     [data-framer-name="4"] .timeline-ceremony-title,
     .framer-1a48c90 .timeline-ceremony-title,
@@ -1204,6 +1254,14 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
 <script>
 (function () {
   function cleanupLocationSection() {
+
+    // 4. Completely remove/hide Things to Know elements
+    document.querySelectorAll('[data-framer-name*="Things to Know" i], [data-framer-name*="Info Icons" i]').forEach(el => {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+      el.style.setProperty('height', '0', 'important');
+    });
+
     // 1. Hide the location pill buttons container
     document.querySelectorAll('button').forEach(btn => {
       const text = (btn.textContent || '').trim();
