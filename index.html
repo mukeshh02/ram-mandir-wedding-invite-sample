@@ -168,16 +168,7 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     --framer-font-size: clamp(30px, 8vw, 38px) !important;
   }
 
-  /* Invitation Section: Siddharth, and, Annu - Perfect Center Alignment & Symmetrical Spacing */
-  [data-framer-name="Groom Name — Siddharth"],
-  [data-framer-name="Groom Name — Akash"],
-  .framer-drfk4d,
-  .framer-16pn0qa,
-  .framer-11upt1c {
-    left: 50% !important;
-    text-align: center !important;
-  }
-
+  /* Invitation Section: Siddharth and Annu - 5-10% reduction from original */
   [data-framer-name="Groom Name — Siddharth"] p.framer-text,
   [data-framer-name="Groom Name — Akash"] p.framer-text,
   .framer-drfk4d p.framer-text,
@@ -187,40 +178,6 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     --framer-font-size: clamp(62px, 16vw, 74px) !important;
     line-height: 1.08 !important;
     letter-spacing: -0.02em !important;
-    text-align: center !important;
-  }
-
-  [data-framer-name="Ampersand — and"],
-  .framer-1g3ts08,
-  .framer-heitmu,
-  .framer-sbfgzj {
-    width: 100% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    text-align: center !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-top: 0px !important;
-  }
-
-  [data-framer-name="Ampersand — and"] p.framer-text {
-    font-size: clamp(30px, 8vw, 38px) !important;
-    --framer-font-size: clamp(30px, 8vw, 38px) !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-  }
-
-  [data-framer-name="Bride Name — Annu"],
-  [data-framer-name="Bride Name — Drashti"],
-  .framer-j4wz4a,
-  .framer-xdw7yv,
-  .framer-10ci637 {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    text-align: center !important;
-    margin-bottom: 22px !important;
-    margin-top: -22px !important;
   }
 
   [data-framer-name="Bride Name — Annu"] p.framer-text,
@@ -232,7 +189,11 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     --framer-font-size: clamp(62px, 16vw, 74px) !important;
     line-height: 1.08 !important;
     letter-spacing: -0.02em !important;
-    text-align: center !important;
+  }
+
+  [data-framer-name="Ampersand — and"] p.framer-text {
+    font-size: clamp(30px, 8vw, 38px) !important;
+    --framer-font-size: clamp(30px, 8vw, 38px) !important;
   }
 }
 
@@ -403,6 +364,34 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
 [data-framer-name="Countdown Divider"] {
   margin-top: 26px !important;
   margin-bottom: 8px !important;
+}
+
+
+/* ==========================================================================
+   DIRECTLY CONNECT ROYAL PALACE -> LINE PNG -> COUNTDOWN
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  [data-framer-name="Ornament Bottom"] {
+    top: 787px !important;
+  }
+  [data-framer-name="Countdown Backdrop"] {
+    top: 1091px !important;
+  }
+  [data-framer-name="Countdown Heading"] {
+    top: 1155px !important;
+  }
+  [data-framer-name="Countdown Intro Text"] {
+    top: 1185px !important;
+  }
+  [data-framer-name="Countdown Divider"] {
+    top: 1230px !important;
+  }
+  [data-framer-name="Countdown Timer"] {
+    top: 1240px !important;
+  }
+  .framer-98eqjf {
+    height: 1960px !important;
+  }
 }
 
 </style><script>document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');},true);function acpBrand(){var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var node;while(node=walker.nextNode()){if(!/SCRIPT|STYLE/.test(node.parentElement.tagName)&&/theartfulinvites|ACP Invites/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/@?theartfulinvites|ACP Invites/gi,'ACP Invites');}document.querySelectorAll('#__framer-badge-container,[data-framer-name*="Watermark"],[data-framer-name*="Diagonal Repeating"],[data-framer-name*="ACP Invites"],img[src*="RVhpkNjLTUrNV4qDdt8xE7a0Ps"]').forEach(function(el){el.remove()});document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(/artfulinvites|demo\d.*framer.website|wa.me|api.whatsapp.com|instagram.com/i.test(h))a.href='https://wa.me/918236016009?text=Hello%20A.C.P';});}document.addEventListener('click',function(e){var b=e.target.closest('button,a');if(b&&/RSVP/i.test(b.textContent)){e.preventDefault();e.stopImmediatePropagation();alert('ACP Invites sample: RSVP details are not submitted.');}},true);document.addEventListener('DOMContentLoaded',function(){acpBrand();new MutationObserver(acpBrand).observe(document.body,{childList:true,subtree:true});});</script>
@@ -1322,6 +1311,61 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
   }
 
   cleanupLocationSection();
+
+  // 5. Dynamic Countdown Positioning: Directly connect Royal Palace -> Line PNG -> Countdown
+  function repositionCountdownBelowVenue() {
+    const section4 = document.querySelector('[data-framer-name="4 — Location & Countdown"], [data-framer-name="4 — Location &amp; Countdown"]');
+    const dividerLine = document.querySelector('[data-framer-name="Ornament Bottom"]');
+    if (!section4 || !dividerLine) return;
+
+    // Find the Royal Palace card
+    let card = null;
+    const cards = section4.querySelectorAll('div');
+    for (let c of cards) {
+      if (c.textContent && c.textContent.includes('Royal Palace') && c.textContent.includes('Nehru Nagar')) {
+        card = c;
+        break;
+      }
+    }
+    if (!card) return;
+
+    const s4Rect = section4.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const cardBottom = cardRect.bottom - s4Rect.top;
+    const targetDividerTop = cardBottom + 26; // 26px clean margin
+
+    const currentDividerTop = dividerLine.getBoundingClientRect().top - s4Rect.top;
+    const shift = currentDividerTop - targetDividerTop;
+
+    if (shift > 20) {
+      const selectors = [
+        '[data-framer-name="Ornament Bottom"]',
+        '[data-framer-name="Countdown Backdrop"]',
+        '[data-framer-name="Countdown Heading"]',
+        '[data-framer-name="Countdown Intro Text"]',
+        '[data-framer-name="Countdown Divider"]',
+        '[data-framer-name="Countdown Timer"]'
+      ];
+      selectors.forEach(sel => {
+        section4.querySelectorAll(sel).forEach(el => {
+          const curTop = parseFloat(window.getComputedStyle(el).top);
+          if (!isNaN(curTop)) {
+            el.style.setProperty('top', (curTop - shift) + 'px', 'important');
+          }
+        });
+      });
+
+      const curH = parseFloat(window.getComputedStyle(section4).height);
+      if (!isNaN(curH)) {
+        section4.style.setProperty('height', (curH - shift) + 'px', 'important');
+      }
+    }
+  }
+
+  repositionCountdownBelowVenue();
+  window.addEventListener('resize', repositionCountdownBelowVenue);
+  setInterval(repositionCountdownBelowVenue, 250);
+
   setInterval(cleanupLocationSection, 200);
 })();
 </script>
