@@ -189,6 +189,8 @@ img[src*="cuJqbfW35i2RRVw2Q3Vaix9WO8I"],img[src*="couple_photo"]{object-position
     --framer-font-size: clamp(62px, 16vw, 74px) !important;
     line-height: 1.08 !important;
     letter-spacing: -0.02em !important;
+    position: relative !important;
+    top: -32px !important;
   }
 
   [data-framer-name="Ampersand — and"] p.framer-text {
@@ -1264,6 +1266,21 @@ html.ram-invitation-closed #floatingAudioBtn { visibility: hidden; }
 <script>
 (function () {
   function cleanupLocationSection() {
+
+    // Fix Leaflet map center if loaded
+    try {
+      const mapContainers = document.querySelectorAll('.leaflet-container');
+      mapContainers.forEach(container => {
+        if (container._leaflet_map) {
+          const center = container._leaflet_map.getCenter();
+          if (center && Math.abs(center.lat - 21.1005625) > 0.05) {
+            container._leaflet_map.setView([21.1005625, 81.0641406], 15);
+            container._leaflet_map.invalidateSize();
+          }
+        }
+      });
+    } catch(e) {}
+
 
     // 4. Completely remove/hide Things to Know elements
     document.querySelectorAll('[data-framer-name*="Things to Know" i], [data-framer-name*="Info Icons" i]').forEach(el => {
